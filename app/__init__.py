@@ -1,1 +1,0 @@
-from geonames_db import GeoNamesDB

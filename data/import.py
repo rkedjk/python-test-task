@@ -1,7 +1,7 @@
 import sqlite3
 import csv
 # Создаем или подключаемся к базе данных SQLite
-conn = sqlite3.connect("geonames.sqlite")
+conn = sqlite3.connect("geonames_cities.sqlite")
 cursor = conn.cursor()
 
 # Создаем таблицу, если она не существует
@@ -32,19 +32,20 @@ cursor.execute('''
 with open("data\RU.txt", "r", encoding="utf-8") as file:
     for line in file:
         values = line.strip().split('\t')
-        # Добавляем недостающие значения, если необходимо
-        while len(values) < 19:
-            values.append(None)
-        # Преобразуем строки с числовыми значениями
-        values[0] = int(values[0])  # geonameid
-        values[4] = float(values[4])  # latitude
-        values[5] = float(values[5])  # longitude
-        values[14] = int(values[14])  # population
-        values[15] = int(values[15]) if values[15] else None  # elevation
-        values[16] = int(values[16]) if values[16] else None  # dem
+        if (values[6] == 'P'):
+            # Добавляем недостающие значения, если необходимо
+            while len(values) < 19:
+                values.append(None)
+            # Преобразуем строки с числовыми значениями
+            values[0] = int(values[0])  # geonameid
+            values[4] = float(values[4])  # latitude
+            values[5] = float(values[5])  # longitude
+            values[14] = int(values[14])  # population
+            values[15] = int(values[15]) if values[15] else None  # elevation
+            values[16] = int(values[16]) if values[16] else None  # dem
 
-        # Вставляем данные в таблицу
-        cursor.execute("INSERT INTO geonames VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", values)
+            # Вставляем данные в таблицу
+            cursor.execute("INSERT INTO geonames VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", values)
 
 # Сохраняем изменения и закрываем соединение
 conn.commit()
