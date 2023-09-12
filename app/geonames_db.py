@@ -1,5 +1,5 @@
 import sqlite3
-import utils
+from .helpers import get_timezone_difference_hours
 
 class GeoNamesDB:
     def __init__(self, db_name):
@@ -152,7 +152,7 @@ class GeoNamesDB:
                 northernness_first = "Northern" if first_city_dict["latitude"] > second_city_dict["latitude"] else "Southern"
                 northernness_second = "Northern" if second_city_dict["latitude"] > first_city_dict["latitude"] else "Southern"
 
-                timezone_difference = utils.get_timezone_difference_hours(first_city_dict["timezone"],second_city_dict["timezone"])
+                timezone_difference = get_timezone_difference_hours(first_city_dict["timezone"],second_city_dict["timezone"])
                 
                 return {
                     "first_city": {
