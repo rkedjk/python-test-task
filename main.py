@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from app.geonames_db import GeoNamesDB
-from app.utils import get_timezone_difference_hours
 
 gndb = GeoNamesDB("databases\geonames.sqlite")
 
@@ -26,7 +25,7 @@ def compare_cities(first_city_name: str, second_city_name: str):
     comparison = gndb.get_cities_timezone_and_northernness_comparison(first_city_name,second_city_name)
     return comparison
 
-@app.get("/city/listpage/p{page}&q{quantity}")
+@server.get("/city/listpage/p{page}&q{quantity}")
 def cities_page(page:int, quantity:int):
     city_list = gndb.get_cities_on_page(page,quantity)
     return city_list

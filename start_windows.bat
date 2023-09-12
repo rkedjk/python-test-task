@@ -1,2 +1,2 @@
 @echo off
-uvicorn main:app --reload
+uvicorn main:server --reload
