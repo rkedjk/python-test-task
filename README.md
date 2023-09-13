@@ -137,6 +137,261 @@ uvicorn main:server --reload
 
 ## API DOCS 
 
+Далее будут описаны примеры API запросов и форматы вывода данных на основе типа /city/
+
+### /city/info/{geonameid}:
+
+#### Формат запроса
+```URL
+http://127.0.0.1:8000/city/info/524901
+```
+#### Формат вывода данных 
+```JSON
+{
+    "geonameid": 524901,
+    "name": "Moscow",
+    "asciiname": "Moscow",
+    "alternatenames": "MOW,Maeskuy,Maskav,Maskava,Maskva,Mat-xco-va,Matxcova,Matxcơva,Mosca,Moscfa,Moscha,Mosco,Moscou,Moscova,Moscovo,Moscow,Moscoƿ,Moscu,Moscua,Moscòu,Moscó,Moscù,Moscú,Moskva,Moska,Moskau,Mosko,Moskokh,Moskou,Moskov,Moskova,Moskovu,Moskow,Moskowa,Mosku,Moskuas,Moskva,Moskve,Moskvo,Moskvy,Moskwa,Moszkva,Muskav,Musko,Mát-xcơ-va,Mòskwa,Məskeu,Məskəү,masko,maskw,mo si ke,moseukeuba,mosko,mosukuwa,mskw,mwskva,mwskw,mwsqbh,mx s ko,Μόσχα,Мæскуы,Маскав,Масква,Москва,Москве,Москвы,Москова,Москох,Москъва,Мускав,Муско,Мәскеу,Мәскәү,Մոսկվա,מאָסקװע,מאסקווע,מוסקבה,ماسکو,مسکو,موسكو,موسكۋا,ܡܘܣܩܒܐ,मास्को,मॉस्को,মস্কো,மாஸ்கோ,มอสโก,མོ་སི་ཁོ།,მოსკოვი,ሞስኮ,モスクワ,莫斯科,모스크바",
+    "latitude": 55.75222,
+    "longitude": 37.61556,
+    "feature_class": "P",
+    "feature_code": "PPLC",
+    "country_code": "RU",
+    "cc2": "",
+    "admin1_code": "48",
+    "admin2_code": "",
+    "admin3_code": "",
+    "admin4_code": "",
+    "population": 10381222,
+    "elevation": null,
+    "dem": 144,
+    "timezone": "Europe/Moscow",
+    "modification_date": "2022-12-10"
+}
+
+```
+### /city/suggest/{partial_name}:
+
+#### Формат запроса
+```URL
+http://127.0.0.1:8000/city/suggest/Ryazan
+```
+#### Формат вывода данных 
+```JSON
+[
+  "Ryazanovka",
+  "Ryazany",
+  "Ryazantsy",
+  "Ryazantsy",
+  "Ryazantsevo",
+  "Ryazantsevo",
+  "Ryazantsevo",
+  "Ryazanskaya",
+  "Ryazanovskiy",
+  "Ryazanovskiy",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazankin",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazanka",
+  "Ryazan’",
+  "Ryazan’",
+  "Ryazan’",
+  "Ryazanovskaya",
+  "Ryazanka",
+  "Ryazanskiy",
+  "Ryazanki",
+  "Ryazantsevla",
+  "Ryazan’",
+  "Ryazanovo",
+  "Ryazanovka",
+  "Ryazanovskiye",
+  "Ryazanovo",
+  "Ryazantsevo",
+  "Ryazantsevo",
+  "Ryazanskoye",
+  "Ryazanovo",
+  "Ryazany",
+  "Ryazansk",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanovka",
+  "Ryazanka",
+  "Ryazanovshchina",
+  "Ryazanovka",
+  "Ryazanovo",
+  "Ryazanka",
+  "Ryazanovo",
+  "Ryazanovshchina",
+  "Ryazan’",
+  "Ryazanovo",
+  "Ryazanovo",
+  "Ryazanskiy",
+  "Ryazanovo",
+  "Ryazanka",
+  "Ryazanovo",
+  "Ryazanskiy",
+  "Ryazanovo",
+  "Ryazan’",
+  "Ryazanovo"
+]
+```
+### /city/compare/{first_city_name}&{second_city_name}:
+
+#### Формат запроса
+```URL
+http://127.0.0.1:8000/city/compare/Москва&Калиниград
+```
+#### Формат вывода данных 
+```JSON
+{
+  "first_point": {
+    "timezone": "Europe/Moscow",
+    "northernness": "Northern",
+    "point_info": {
+      "geonameid": 524901,
+      "name": "Moscow",
+      "asciiname": "Moscow",
+      "alternatenames": "MOW,Maeskuy,Maskav,Maskava,Maskva,Mat-xco-va,Matxcova,Matxcơva,Mosca,Moscfa,Moscha,Mosco,Moscou,Moscova,Moscovo,Moscow,Moscoƿ,Moscu,Moscua,Moscòu,Moscó,Moscù,Moscú,Moskva,Moska,Moskau,Mosko,Moskokh,Moskou,Moskov,Moskova,Moskovu,Moskow,Moskowa,Mosku,Moskuas,Moskva,Moskve,Moskvo,Moskvy,Moskwa,Moszkva,Muskav,Musko,Mát-xcơ-va,Mòskwa,Məskeu,Məskəү,masko,maskw,mo si ke,moseukeuba,mosko,mosukuwa,mskw,mwskva,mwskw,mwsqbh,mx s ko,Μόσχα,Мæскуы,Маскав,Масква,Москва,Москве,Москвы,Москова,Москох,Москъва,Мускав,Муско,Мәскеу,Мәскәү,Մոսկվա,מאָסקװע,מאסקווע,מוסקבה,ماسکو,مسکو,موسكو,موسكۋا,ܡܘܣܩܒܐ,मास्को,मॉस्को,মস্কো,மாஸ்கோ,มอสโก,མོ་སི་ཁོ།,მოსკოვი,ሞስኮ,モスクワ,莫斯科,모스크바",
+      "latitude": 55.75222,
+      "longitude": 37.61556,
+      "feature_class": "P",
+      "feature_code": "PPLC",
+      "country_code": "RU",
+      "cc2": "",
+      "admin1_code": "48",
+      "admin2_code": "",
+      "admin3_code": "",
+      "admin4_code": "",
+      "population": 10381222,
+      "elevation": null,
+      "dem": 144,
+      "timezone": "Europe/Moscow",
+      "modification_date": "2022-12-10"
+    }
+  },
+  "second_point": {
+    "timezone": "Europe/Kaliningrad",
+    "northernness": "Southern",
+    "point_info": {
+      "geonameid": 554234,
+      "name": "Kaliningrad",
+      "asciiname": "Kaliningrad",
+      "alternatenames": "Caliningrado,Calininopolis,KGD,Kalinin'nkrant,Kaliningrad,Kaliningrada,Kaliningradas,Kaliningrado,Kaliningradum,Kaliningrau,Kaliningráu,Kalininqrad,Kalinjingrad,Kalinyingrad,Kalinyingrád,Kalińingrad,Kalíníngrad,Karaliaucios,Karaliaucius,Karaliaučios,Karaliaučius,Kaļiņingrada,Kenisberg,Koenigsbarg,Koenigsberg,Koenigsberg in Preussen,Korigsberg,Krolewiec,Królewiec,Kënisberg,Königsbarg,Königsberg,Königsberg in Preußen,Körigsberg,jia li ning ge lei,kalininagrada,kalliningeuladeu,kalynynghrad,kalynyngrad,kariningurado,qlynyngrd,Καλίνινγκραντ,Калининград,Калињинград,Калінінград,Կալինինգրադ,קלינינגרד,كالينينغراد,کالیننگراڈ,کالینینگراد,کیلننگراڈ,कालिनिनग्राद,ಕಲಿನಿನ್‍ಗ್ರಾಡ್,კალინინგრადი,カリーニングラード,加里寧格勒,칼리닌그라드",
+      "latitude": 54.70649,
+      "longitude": 20.51095,
+      "feature_class": "P",
+      "feature_code": "PPLA",
+      "country_code": "RU",
+      "cc2": "",
+      "admin1_code": "23",
+      "admin2_code": "825118",
+      "admin3_code": "",
+      "admin4_code": "",
+      "population": 475056,
+      "elevation": null,
+      "dem": 2,
+      "timezone": "Europe/Kaliningrad",
+      "modification_date": "2023-05-23"
+    }
+  },
+  "timezone_difference": "-1.0"
+}
+```
+
+### /city/listpage/p{page}&q{quantity}:
+
+#### Формат запроса
+```URL
+http://127.0.0.1:8000/city/listpage/p5&q3
+```
+#### Формат вывода данных 
+```JSON
+[
+  {
+    "geonameid": 451819,
+    "name": "Svoboda",
+    "asciiname": "Svoboda",
+    "alternatenames": "",
+    "latitude": 56.96613,
+    "longitude": 34.19721,
+    "feature_class": "P",
+    "feature_code": "PPL",
+    "country_code": "RU",
+    "cc2": "",
+    "admin1_code": "77",
+    "admin2_code": "",
+    "admin3_code": "",
+    "admin4_code": "",
+    "population": 0,
+    "elevation": null,
+    "dem": 243,
+    "timezone": "Europe/Moscow",
+    "modification_date": "2011-07-09"
+  },
+  {
+    "geonameid": 451820,
+    "name": "Sverchkovo",
+    "asciiname": "Sverchkovo",
+    "alternatenames": "",
+    "latitude": 56.82755,
+    "longitude": 34.61065,
+    "feature_class": "P",
+    "feature_code": "PPL",
+    "country_code": "RU",
+    "cc2": "",
+    "admin1_code": "77",
+    "admin2_code": "",
+    "admin3_code": "",
+    "admin4_code": "",
+    "population": 0,
+    "elevation": null,
+    "dem": 221,
+    "timezone": "Europe/Moscow",
+    "modification_date": "2011-07-09"
+  },
+  {
+    "geonameid": 451821,
+    "name": "Sutoki",
+    "asciiname": "Sutoki",
+    "alternatenames": "",
+    "latitude": 57.17889,
+    "longitude": 34.27454,
+    "feature_class": "P",
+    "feature_code": "PPL",
+    "country_code": "RU",
+    "cc2": "",
+    "admin1_code": "77",
+    "admin2_code": "",
+    "admin3_code": "",
+    "admin4_code": "",
+    "population": 0,
+    "elevation": null,
+    "dem": 219,
+    "timezone": "Europe/Moscow",
+    "modification_date": "2011-07-09"
+  }
+]
+```
 ## Описание к программному коду и технологиям
 
 ### Фреймворки
@@ -219,3 +474,66 @@ SQLite - реализация базы данных
 - Возвращаемое значение: Словарь с информацией о сравнении двух точек или сообщение об ошибке, если одна или обе точки не найдены.
 
 ### Файл helpers.py
+
+Следующая функция вынесена в отдельный модуль, так как использует библиотеку pytz для интерпретации часовых поясов в числовой формат.
+
+### Функция `get_timezone_difference_hours(first_timezone, second_timezone)`
+
+- Описание: Рассчитывает разницу во времени между двумя часовыми поясами и возвращает ее в формате "+X" или "-X".
+- Параметры:
+  - `first_timezone` (str): Имя первого часового пояса.
+  - `second_timezone` (str): Имя второго часового пояса.
+- Возвращаемое значение: Разница во времени между двумя часовыми поясами в формате "+X" или "-X", либо "Unknown timezone", если один из часовых поясов неизвестен.
+
+## Описание скрипта импорта данных в базу данных SQLite
+
+### Скрипт `parser.py`
+
+- Описание: Скрипт импорта данных из файла "RU.txt" в базу данных SQLite "geonames_cities.sqlite".
+- Импортирует информацию о географических точках в базу данных и создает соответствующую таблицу, если она не существует.
+
+### Шаги скрипта:
+
+1. Подключается к базе данных SQLite с именем "geonames_cities.sqlite" или создает ее, если она не существует.
+
+2. Создает таблицу "geonames" в базе данных, если она не существует. Таблица содержит следующие поля:
+
+   - `geonameid` (INTEGER): Идентификатор GeoName.
+   - `name` (VARCHAR(200)): Название точки.
+   - `asciiname` (VARCHAR(200)): Транслитерированное название точки.
+   - `alternatenames` (VARCHAR(10000)): Альтернативные названия точки.
+   - `latitude` (DECIMAL(9, 6)): Широта точки.
+   - `longitude` (DECIMAL(9, 6)): Долгота точки.
+   - `feature_class` (CHAR(1)): Класс точки.
+   - `feature_code` (VARCHAR(10)): Код точки.
+   - `country_code` (CHAR(2)): Код страны.
+   - `cc2` (VARCHAR(200)): Дополнительные коды страны.
+   - `admin1_code` (VARCHAR(20)): Код административной единицы 1-го уровня.
+   - `admin2_code` (VARCHAR(80)): Код административной единицы 2-го уровня.
+   - `admin3_code` (VARCHAR(20)): Код административной единицы 3-го уровня.
+   - `admin4_code` (VARCHAR(20)): Код административной единицы 4-го уровня.
+   - `population` (BIGINT): Население точки.
+   - `elevation` (INTEGER): Высота над уровнем моря (может быть NULL).
+   - `dem` (INTEGER): Модель рельефа (может быть NULL).
+   - `timezone` (VARCHAR(40)): Временная зона точки.
+   - `modification_date` (DATE): Дата модификации записи.
+
+3. Открывает файл "RU.txt" и читает его построчно.
+
+4. Обрабатывает строки из файла, разделяя их по табуляции и преобразуя значения к соответствующим типам данных.
+
+5. Вставляет данные в таблицу "geonames" базы данных SQLite.
+
+6. Сохраняет изменения и закрывает соединение с базой данных.
+
+7. Выводит сообщение о успешном импорте данных.
+
+### Замечания:
+
+- Скрипт предполагает, что файл "RU.txt" с данными существует в директории "data" и имеет определенный формат.
+
+- Информация о точках, имеющих класс "P" (города), импортируется в базу данных, а остальные данные игнорируются.
+
+- В случае отсутствия значений высоты и модели рельефа в данных, соответствующие поля в базе данных остаются пустыми (NULL).
+
+- Скрипт не предоставляет интерфейса пользователя и выполняет только операции импорта данных.
