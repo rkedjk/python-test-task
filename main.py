@@ -1,53 +1,62 @@
 from fastapi import FastAPI
 from app.geonames_db import GeoNamesDB
 
+# Создаем экземпляры класса GeoNamesDB для работы с базами данных
 gndb_city = GeoNamesDB("databases\geonames_cities.sqlite")
 gndb = GeoNamesDB("databases\geonames.sqlite")
 
-
+# Создаем экземпляр FastAPI сервера
 server = FastAPI()
 
-
+# Обработчик корневого URL
 @server.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI application!"}
 
+# Обработчик для получения информации о городе по geonameid
 @server.get("/city/info/{geonameid}")
 def read_city(geonameid: int):
     city_info = gndb_city.get_point_info(geonameid)
     return city_info
 
+# Обработчик для поиска городов по частичному совпадению названия
 @server.get("/city/suggest/{partial_name}")
 def search_cities(partial_name: str):
     suggestions = gndb_city.get_point_name_suggestions(partial_name)
     return suggestions
 
+# Обработчик для сравнения информации о двух городах
 @server.get("/city/compare/{first_city_name}&{second_city_name}")
 def compare_cities(first_city_name: str, second_city_name: str):
-    comparison = gndb_city.get_points_timezone_and_northernness_comparison(first_city_name,second_city_name)
+    comparison = gndb_city.get_points_timezone_and_northernness_comparison(first_city_name, second_city_name)
     return comparison
 
+# Обработчик для получения списка городов на странице
 @server.get("/city/listpage/p{page}&q{quantity}")
-def cities_page(page:int, quantity:int):
-    city_list = gndb_city.get_points_on_page(page,quantity)
+def cities_page(page: int, quantity: int):
+    city_list = gndb_city.get_points_on_page(page, quantity)
     return city_list
 
+# Обработчик для получения информации о точке по geonameid
 @server.get("/point/info/{geonameid}")
 def read_city(geonameid: int):
     city_info = gndb.get_point_info(geonameid)
     return city_info
 
+# Обработчик для поиска точек по частичному совпадению названия
 @server.get("/point/suggest/{partial_name}")
 def search_cities(partial_name: str):
     suggestions = gndb.get_point_name_suggestions(partial_name)
     return suggestions
 
+# Обработчик для сравнения информации о двух точках
 @server.get("/point/compare/{first_city_name}&{second_city_name}")
 def compare_cities(first_city_name: str, second_city_name: str):
-    comparison = gndb.get_points_timezone_and_northernness_comparison(first_city_name,second_city_name)
+    comparison = gndb.get_points_timezone_and_northernness_comparison(first_city_name, second_city_name)
     return comparison
 
+# Обработчик для получения списка точек на странице
 @server.get("/point/listpage/p{page}&q{quantity}")
-def cities_page(page:int, quantity:int):
-    city_list = gndb.get_points_on_page(page,quantity)
+def cities_page(page: int, quantity: int):
+    city_list = gndb.get_points_on_page(page, quantity)
     return city_list
