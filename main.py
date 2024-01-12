@@ -1,9 +1,14 @@
 from fastapi import FastAPI
 from app.geonames_db import GeoNamesDB
+import os
 
-# Создаем экземпляры класса GeoNamesDB для работы с базами данных
-gndb_city = GeoNamesDB("databases\geonames_cities.sqlite")
-gndb = GeoNamesDB("databases\geonames.sqlite")
+# Определение пути к файлам баз данных
+cities_db_path = os.path.join("databases", "geonames_cities.sqlite")
+general_db_path = os.path.join("databases", "geonames.sqlite")
+
+# Создание экземпляров GeoNamesDB с учетом кросс-платформенности
+gndb_city = GeoNamesDB(cities_db_path)
+gndb = GeoNamesDB(general_db_path)
 
 # Создаем экземпляр FastAPI сервера
 server = FastAPI()
