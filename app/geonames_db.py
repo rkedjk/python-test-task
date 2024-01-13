@@ -1,7 +1,7 @@
 # A class for interacting with a GeoNames SQLite database and performing various queries
-
 import sqlite3
 from .helpers import get_timezone_difference_hours
+from point import Point
 
 class GeoNamesDB:
     """
@@ -74,6 +74,18 @@ class GeoNamesDB:
             "modification_date": point_info[18],
         }
         return point_dict
+
+    def _create_point_namedtuple(self, point_info):
+        """
+        Create a named tuple from a tuple containing point information.
+
+        Args:
+            point_info (tuple): A tuple containing information about a geographic point.
+
+        Returns:
+            Point: A named tuple representing point attributes.
+        """
+        return Point(*point_info)
 
     def get_point_info(self, geonameid):
         """
