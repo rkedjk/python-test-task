@@ -1,6 +1,8 @@
 # A class for interacting with a GeoNames SQLite database and performing various queries
 import sqlite3
 from .helpers import get_timezone_difference_hours
+from pathlib import Path
+
 """
 from .point_tuple import PointTuple
 see _create_point_namedtuple
@@ -25,9 +27,9 @@ class GeoNamesDB:
         """
         Establish a connection to the SQLite database.
         """
-        if isinstance(self.db_source, str):
+        if isinstance(self.db_source, (str, Path)):
             # If db_source is a string, treat it as a path and connect to the database
-            self.connection = sqlite3.connect(self.db_source)
+            self.connection = sqlite3.connect(str(self.db_source))
         elif isinstance(self.db_source, sqlite3.Connection):
             # If db_source is an SQLite connection instance, use it directly
             self.connection = self.db_source

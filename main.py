@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from app.geonames_db import GeoNamesDB
-import os
+from pathlib import Path
 
-# Определение пути к файлам баз данных
-cities_db_path = os.path.join("databases", "geonames_cities.sqlite")
-general_db_path = os.path.join("databases", "geonames.sqlite")
+# Determine the base directory for the project
+base_dir = Path(__file__).resolve().parent
+
+# Define database file paths
+cities_db_path = base_dir / "databases" / "geonames_cities.sqlite"
+general_db_path = base_dir / "databases" / "geonames.sqlite"
 
 # Создание экземпляров GeoNamesDB с учетом кросс-платформенности
 gndb_city = GeoNamesDB(cities_db_path)
@@ -22,8 +25,7 @@ def read_root():
 @server.get("/city/info/{geonameid}")
 def read_city(geonameid: int):
     city_info = gndb_city.get_point_info(geonameid)
-    return city_info._asdict() if city_info else None
-
+    return city_info
 # Обработчик для поиска городов по частичному совпадению названия
 @server.get("/city/suggest/{partial_name}")
 def search_cities(partial_name: str):
