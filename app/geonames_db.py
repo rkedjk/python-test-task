@@ -1,7 +1,10 @@
 # A class for interacting with a GeoNames SQLite database and performing various queries
 import sqlite3
 from .helpers import get_timezone_difference_hours
-from point import Point
+"""
+from .point_tuple import PointTuple
+see _create_point_namedtuple
+"""
 
 class GeoNamesDB:
     """
@@ -50,7 +53,7 @@ class GeoNamesDB:
             point_info (tuple): A tuple containing information about a geographic point.
 
         Returns:
-            dict: A dictionary with keys representing point attributes.
+            point_dict: A dictionary with keys representing point attributes.
         """
         point_dict = {
             "geonameid": point_info[0],
@@ -75,17 +78,28 @@ class GeoNamesDB:
         }
         return point_dict
 
+    """
+    this method should be used a default instead of _create_point_dict
+    to prevent point data changing inside of program
+    but for now its much of excessive work to implement because of the problems 
+    occuring with Mock and FastAPI as they dont work so easily with tuple as a dict
+    So its commented by now
     def _create_point_namedtuple(self, point_info):
-        """
+        
+        insert brackets here
+        
         Create a named tuple from a tuple containing point information.
 
         Args:
             point_info (tuple): A tuple containing information about a geographic point.
 
         Returns:
-            Point: A named tuple representing point attributes.
-        """
-        return Point(*point_info)
+            PointTuple: A named tuple representing point attributes.
+        
+        insert brackets here
+        
+        return PointTuple(*point_info)
+    """
 
     def get_point_info(self, geonameid):
         """

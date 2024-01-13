@@ -22,7 +22,7 @@ def read_root():
 @server.get("/city/info/{geonameid}")
 def read_city(geonameid: int):
     city_info = gndb_city.get_point_info(geonameid)
-    return city_info
+    return city_info._asdict() if city_info else None
 
 # Обработчик для поиска городов по частичному совпадению названия
 @server.get("/city/suggest/{partial_name}")
