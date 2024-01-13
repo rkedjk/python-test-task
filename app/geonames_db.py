@@ -125,7 +125,7 @@ class GeoNamesDB:
             else:
                 return None
         except sqlite3.Error as e:
-            print("Error executing query:", e)
+            raise
         finally:
             self.close()
 
@@ -154,7 +154,7 @@ class GeoNamesDB:
 
             return points_list
         except sqlite3.Error as e:
-            print("Error executing query:", e)
+            raise
         finally:
             self.close()
 
@@ -182,7 +182,7 @@ class GeoNamesDB:
             else:
                 return []
         except sqlite3.Error as e:
-            print("Error executing query:", e)
+            raise
         finally:
             self.close()
 
@@ -209,7 +209,7 @@ class GeoNamesDB:
             else:
                 return {"error": "Point not found with the given native name"}
         except sqlite3.Error as e:
-            print("Error executing query:", e)
+            raise
         finally:
             self.close()
 
@@ -298,6 +298,6 @@ class GeoNamesDB:
             else:
                 return {"error": "One or both points not found in Russia"}
         except sqlite3.Error as e:
-            print("Error executing query:", e)
+            raise
         finally:
             self.close()
