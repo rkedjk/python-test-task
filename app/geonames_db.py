@@ -14,15 +14,26 @@ class GeoNamesDB:
     perform queries based on point names, calculate time zone differences, and more.
     """
 
-    def __init__(self, db_name):
-        self.db_name = db_name
+    def __init__(self, db_source):
+        self.db_source = db_source
         self.connection = None
 
     def connect(self):
         """
         Establish a connection to the SQLite database.
         """
-        self.connection = sqlite3.connect(self.db_name)
+        if isinstance(self.db_source, str):
+            # If db_source is a string, treat it as a path and connect to the database
+            self.connection = sqlite3.connect(self.db_source)
+        elif isinstance(self.db_source, sqlite3.Connection):
+            # If db_source is an SQLite connection instance, use it directly
+            self.connection = self.db_source
+        elif hasattr(self.db_source, 'connection') and hasattr(self.db_source, 'cursor'):
+            # If db_source is a mock object, use it directly
+            self.connection = self.db_source
+        else:
+            raise ValueError("Invalid database source. Provide either a path or an SQLite connection.")
+
 
     def close(self):
         """
