@@ -34,8 +34,10 @@ def get_timezone_difference_hours(first_timezone, second_timezone):
         # Return the difference in the format "+X" or "-X"
         if first_city_offset_hours < second_city_offset_hours:
             return f"+{second_city_offset_hours - first_city_offset_hours}"
+        elif first_city_offset_hours == second_city_offset_hours:
+            return "Same timezone"
         else:
             return f"-{first_city_offset_hours - second_city_offset_hours}"
-
+        
     except pytz.exceptions.UnknownTimeZoneError:
-        return "Unknown timezone"
+        raise
