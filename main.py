@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from app.geonames_db import GeoNamesDB
 from pathlib import Path
+
 
 # Determine the base directory for the project
 base_dir = Path(__file__).resolve().parent
@@ -41,6 +42,9 @@ def compare_cities(first_city_name: str, second_city_name: str):
 # Обработчик для получения списка городов на странице
 @app.get("/city/listpage/p{page}&q{quantity}")
 def cities_page(page: int, quantity: int):
+    if page < 1 or quantity < 1:
+        raise HTTPException(status_code=400, detail="Invalid parameters")
+    
     city_list = gndb_city.get_points_on_page(page, quantity)
     return city_list
 
