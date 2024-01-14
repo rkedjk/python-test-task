@@ -172,11 +172,16 @@ class GeoNamesDB:
             self.connect()
             cursor = self.connection.cursor()
 
+            if partial_name == "":
+                return None
+
             # Execute an SQL query to find cities whose names start with the given partial name
             cursor.execute("SELECT name FROM geonames WHERE name LIKE ? || '%'", (partial_name,))
             suggestions = cursor.fetchall()
 
-            if suggestions:
+            if suggestions == []:
+                return  None
+            elif suggestions:
                 suggestion_list = [row[0] for row in suggestions]
                 return suggestion_list
             else:
