@@ -1,51 +1,24 @@
-# A class for interacting with a GeoNames SQLite database and performing various queries
-import sqlite3
-from .helpers import get_timezone_difference_hours
+from sqlite_queue import SqliteQueue
 from pathlib import Path
-
-"""
-from .point_tuple import PointTuple
-see _create_point_namedtuple
-"""
+from .helpers import get_timezone_difference_hours
+import sqlite3
 
 class GeoNamesDB:
-    """
-    A class for interacting with a GeoNames SQLite database and performing various queries.
-
-    Args:
-        db_name (str): The name of the SQLite database file.
-
-    This class provides methods to connect to the database, retrieve information about geographic points,
-    perform queries based on point names, calculate time zone differences, and more.
-    """
-
-    def __init__(self, db_source):
+    def __init__(self, db_source, pool_size=5):
         self.db_source = db_source
-        self.connection = None
-
-    def connect(self):
+        self.connection_pool = SqliteQueue(db_source)
+    def connect(self) -> sqlite3.Connection:
         """
         Establish a connection to the SQLite database.
         """
-        if isinstance(self.db_source, (str, Path)):
-            # If db_source is a string, treat it as a path and connect to the database
-            self.connection = sqlite3.connect(str(self.db_source))
-        elif isinstance(self.db_source, sqlite3.Connection):
-            # If db_source is an SQLite connection instance, use it directly
-            self.connection = self.db_source
-        elif hasattr(self.db_source, 'connection') and hasattr(self.db_source, 'cursor'):
-            # If db_source is a mock object, use it directly
-            self.connection = self.db_source
-        else:
-            raise ValueError("Invalid database source. Provide either a path or an SQLite connection.")
-
+        return self.connection_pool
 
     def close(self):
         """
         Close the connection to the database.
         """
-        if self.connection:
-            self.connection.close()
+        pass  # Connection will be closed by the connection pool
+
 
     def _create_point_dict(self, point_info):
         """
